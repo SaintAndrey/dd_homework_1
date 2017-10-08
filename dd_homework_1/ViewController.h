@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface ViewController : UIViewController {
+   
+    IBOutlet UILabel *numberOnDisplay;
+    BOOL *hasPoint;
+    
+}
+- (IBAction)typeOnDigit:(UIButton *)sender;
 
 @end
 

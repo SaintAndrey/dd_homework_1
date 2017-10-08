@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    hasPoint = false;
 }
 
 
@@ -25,5 +25,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)typeOnDigit:(UIButton *)sender {
+    NSString * digit = sender.titleLabel.text;
+    if ([numberOnDisplay.text  isEqual: @"0"] && ![digit isEqual:@","]) {
+        numberOnDisplay.text = digit;
+    } else {
+        if (![digit isEqual:@","] || !hasPoint)
+            numberOnDisplay.text = [NSString stringWithFormat:@"%@%@", numberOnDisplay.text, digit];
+    }
+    
+    if ([digit isEqual:@","])
+        hasPoint = true;
+}
 
 @end
