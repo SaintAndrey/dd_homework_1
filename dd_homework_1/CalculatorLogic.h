@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface CalculatorLogic : NSObject
+
+@property (copy, nonatomic) NSString *currentOperation;
+@property (nonatomic) CGFloat firstOperand;
+
+-(CGFloat)executeOperation:(CGFloat)operand sender:(UIButton *)sender;
 
 @end
