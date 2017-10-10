@@ -15,6 +15,7 @@
 @property (strong, nonatomic) CalculatorLogic *logic;
 @property (nonatomic) BOOL hasDot;
 @property (nonatomic) BOOL waitNextOperand;
+@property (copy, nonatomic) NSString *string;
 
 @end
 
@@ -35,14 +36,16 @@
     
     if ([nowDisplay isEqual:@"0"] || self.waitNextOperand || [nowDisplay isEqual:@"inf"]) {
         nowDisplay = @"";
+        if ([sender.titleLabel.text isEqual:@"."])
+            nowDisplay = @"0";
         self.waitNextOperand = NO;
     }
     
-    if (![sender.titleLabel.text isEqual:@"."] || !_hasDot)
+    if (![sender.titleLabel.text isEqual:@"."] || !self.hasDot)
         nowDisplay = [nowDisplay stringByAppendingString:sender.titleLabel.text];
     
-    if ([sender.titleLabel.text isEqual:@"."] && !_hasDot)
-        _hasDot = YES;
+    if ([sender.titleLabel.text isEqual:@"."] && !self.hasDot)
+        self.hasDot = YES;
     
     self.display.text = nowDisplay;
 }
@@ -79,10 +82,12 @@
     self.display.text = [NSString stringWithFormat:@"%@", result];
     self.logic.firstOperand = result.doubleValue;
     self.waitNextOperand = YES;
+    self.hasDot = NO;
 }
 
 - (IBAction)onOperationPressed:(UIButton *)sender {
     self.waitNextOperand = YES;
+    self.hasDot = NO;
     self.logic.currentOperation = sender.titleLabel.text;
     self.logic.firstOperand = self.display.text.doubleValue;
 }
